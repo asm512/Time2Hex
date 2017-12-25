@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -21,6 +22,14 @@ namespace TimeToHex
     /// </summary>
     public partial class MainWindow : Window
     {
+        public const int WM_NCLBUTTONDOWN = 0xA1;
+        public const int HT_CAPTION = 0x2;
+
+        [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
+        public static extern bool ReleaseCapture();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -28,7 +37,7 @@ namespace TimeToHex
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Timer updateTimer = new Timer();
+            System.Timers.Timer updateTimer = new System.Timers.Timer();
             updateTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
             updateTimer.Interval = 1000;
             updateTimer.Enabled = true;
@@ -48,7 +57,7 @@ namespace TimeToHex
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show(e.Message, "Exception caught!");
+                    System.Windows.MessageBox.Show(e.Message, "Exception caught!");
                 }
             });
         }
@@ -60,7 +69,7 @@ namespace TimeToHex
 
         private void Window_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
-
+            System.Windows.MessageBox.Show("Loading preferences");
         }
     }
 }

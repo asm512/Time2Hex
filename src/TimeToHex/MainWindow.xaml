@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TimeToHex"
         mc:Ignorable="d"
-        Title="MainWindow" Height="400" Width="800" WindowStyle="None" Background="Gray" ResizeMode="NoResize" Loaded="Window_Loaded" MouseUp="Window_MouseUp">
+        Title="MainWindow" Height="400" Width="800" WindowStyle="ToolWindow" Background="Gray" ResizeMode="NoResize" Loaded="Window_Loaded" MouseRightButtonUp="Window_MouseRightButtonUp">
     <Grid>
         <StackPanel>
             <Grid>
