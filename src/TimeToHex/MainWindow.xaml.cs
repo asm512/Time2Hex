@@ -22,13 +22,7 @@ namespace TimeToHex
     /// </summary>
     public partial class MainWindow : Window
     {
-        public const int WM_NCLBUTTONDOWN = 0xA1;
-        public const int HT_CAPTION = 0x2;
-
-        [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
-        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
-        [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
-        public static extern bool ReleaseCapture();
+        internal System.Timers.Timer updateTimer = new System.Timers.Timer();
 
         public MainWindow()
         {
@@ -37,7 +31,6 @@ namespace TimeToHex
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            System.Timers.Timer updateTimer = new System.Timers.Timer();
             updateTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
             updateTimer.Interval = 1000;
             updateTimer.Enabled = true;
@@ -47,9 +40,19 @@ namespace TimeToHex
         {
             this.Dispatcher.Invoke(() =>
             {
-                hourDisplay.Text = DateTime.Now.Hour.ToString();
-                minuteDisplay.Text = DateTime.Now.Minute.ToString();
-                secondDisplay.Text = DateTime.Now.Second.ToString();
+                if (Time2Hex.hasTimescaleChanged) { this.Title = "Time2Hex where current TimeScale = " + Time2Hex.TimeScale.ToString() + " and timer internal = " + updateTimer.Interval.ToString(); Time2Hex.hasTimescaleChanged = false; }
+                if (Time2Hex.TimeScale == 1)
+                {
+                    secondDisplay.Text = DateTime.Now.Second.ToString();
+                    minuteDisplay.Text = DateTime.Now.Minute.ToString();
+                    hourDisplay.Text = DateTime.Now.Hour.ToString();
+                }
+                else
+                {
+                    secondDisplay.Text = Time2Hex.lastSeconds.ToString();
+                    minuteDisplay.Text = Time2Hex.lastMinutes.ToString();
+                    hourDisplay.Text = Time2Hex.lastHours.ToString();
+                }
                 BrushConverter bc = new BrushConverter();
                 try
                 {
@@ -57,7 +60,7 @@ namespace TimeToHex
                 }
                 catch (Exception e)
                 {
-                    System.Windows.MessageBox.Show(e.Message, "Exception caught!");
+                    System.Windows.MessageBox.Show(e.Message, "Exception caught!" + Time2Hex.GetColourFromTime());
                 }
             });
         }
@@ -67,9 +70,34 @@ namespace TimeToHex
             Update();
         }
 
-        private void Window_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        private void timescaleInput_TextChanged(object sender, TextChangedEventArgs e)
         {
-            System.Windows.MessageBox.Show("Loading preferences");
+            if (timescaleInput.Text == "") { return; }
+            if (1000 / Convert.ToInt32(timescaleInput.Text) < 1)
+            {
+                System.Windows.MessageBox.Show("The minimum timer interval is 1s");
+            }
+            if (timescaleInput.Text.Length >= 5)
+            {
+                timescaleInput.Text = timescaleInput.Text.Remove(timescaleInput.Text.Length - 1);
+                System.Windows.MessageBox.Show("Timescale too large");
+            }
+            if (!int.TryParse(timescaleInput.Text, out int num1))
+            {
+                timescaleInput.Clear();
+                System.Windows.MessageBox.Show("Input was not a valid integer");
+                return;
+            }
+        }
+
+        private void setTimescaleButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (Convert.ToInt32(timescaleInput.Text) < 1) { return; }
+            Time2Hex.TimeScale = Convert.ToInt32(timescaleInput.Text);
+            updateTimer.Stop();
+            updateTimer.Interval = 1000 / Time2Hex.TimeScale;
+            updateTimer.Start();
+            Time2Hex.hasTimescaleChanged = true;
         }
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TimeToHex"
         mc:Ignorable="d"
-        Title="MainWindow" Height="400" Width="800" WindowStyle="ToolWindow" Background="Gray" ResizeMode="NoResize" Loaded="Window_Loaded" MouseRightButtonUp="Window_MouseRightButtonUp">
+        Title="" Height="420" Width="800" WindowStyle="ToolWindow" Background="Gray" ResizeMode="NoResize" Loaded="Window_Loaded">
     <Grid>
         <StackPanel>
             <Grid>
@@ -35,6 +35,16 @@
                     </Grid>
                     <Rectangle Height="30" Margin="10,0,10,10" Fill="#4C000000"></Rectangle>
                 </StackPanel>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="179*"/>
+                    <ColumnDefinition Width="217*"/>
+                    <ColumnDefinition Width="398*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Timescale: " Margin="10,0,0,0" FontSize="30"></TextBlock>
+                <TextBox x:Name="timescaleInput" Grid.Column="1" Background="Transparent" FontSize="30" TextChanged="timescaleInput_TextChanged"></TextBox>
+                <Button x:Name="setTimescaleButton" Grid.Column="2" Margin="30,0,30,0" Background="Gray" Content="SET" Click="setTimescaleButton_Click"></Button>
             </Grid>
         </StackPanel>
     </Grid>
