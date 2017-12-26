@@ -40,7 +40,7 @@ namespace TimeToHex
         {
             this.Dispatcher.Invoke(() =>
             {
-                if (Time2Hex.hasTimescaleChanged) { this.Title = "Time2Hex where current TimeScale = " + Time2Hex.TimeScale.ToString() + " and timer internal = " + updateTimer.Interval.ToString(); Time2Hex.hasTimescaleChanged = false; }
+                if (Time2Hex.hasTimescaleChanged) { this.Title = "Time2Hex where current TimeScale = " + Time2Hex.TimeScale.ToString(); Time2Hex.hasTimescaleChanged = false; }
                 if (Time2Hex.TimeScale == 1)
                 {
                     secondDisplay.Text = DateTime.Now.Second.ToString();
@@ -90,7 +90,7 @@ namespace TimeToHex
             }
         }
 
-        private void setTimescaleButton_Click(object sender, RoutedEventArgs e)
+        private void SetTimescaleButton_Click(object sender, RoutedEventArgs e)
         {
             if (Convert.ToInt32(timescaleInput.Text) < 1) { return; }
             Time2Hex.TimeScale = Convert.ToInt32(timescaleInput.Text);

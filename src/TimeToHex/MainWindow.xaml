@@ -19,21 +19,21 @@
                         <Rectangle Margin="20" Height="250" Fill="#4C000000" RadiusX="20" RadiusY="20"></Rectangle>
                         <TextBlock x:Name="hourDisplay" TextAlignment="Center" VerticalAlignment="Center" FontSize="120" FontFamily="Segoe UI Semibold"></TextBlock>
                     </Grid>
-                    <Rectangle Height="30" Margin="10,0,10,10" Fill="#4C000000"></Rectangle>
+                    <Rectangle Height="30" Margin="20,0,20,10" Fill="#4C000000"></Rectangle>
                 </StackPanel>
                 <StackPanel Grid.Column="1">
                     <Grid>
                         <Rectangle Margin="20" Height="250" Fill="#4C000000" RadiusX="20" RadiusY="20"></Rectangle>
                         <TextBlock x:Name="minuteDisplay" TextAlignment="Center" VerticalAlignment="Center" FontSize="120" FontFamily="Segoe UI Semibold"></TextBlock>
                     </Grid>
-                    <Rectangle Height="30" Margin="10,0,10,10" Fill="#4C000000"></Rectangle>
+                    <Rectangle Height="30" Margin="20,0,20,10" Fill="#4C000000"></Rectangle>
                 </StackPanel>
                 <StackPanel Grid.Column="2">
                     <Grid>
                         <Rectangle Margin="20" Height="250" Fill="#4C000000" RadiusX="20" RadiusY="20"></Rectangle>
                         <TextBlock x:Name="secondDisplay" TextAlignment="Center" VerticalAlignment="Center" FontSize="120" FontFamily="Segoe UI Semibold"></TextBlock>
                     </Grid>
-                    <Rectangle Height="30" Margin="10,0,10,10" Fill="#4C000000"></Rectangle>
+                    <Rectangle Height="30" Margin="20,0,20,10" Fill="#4C000000"></Rectangle>
                 </StackPanel>
             </Grid>
             <Grid>
@@ -44,7 +44,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Timescale: " Margin="10,0,0,0" FontSize="30"></TextBlock>
                 <TextBox x:Name="timescaleInput" Grid.Column="1" Background="Transparent" FontSize="30" TextChanged="timescaleInput_TextChanged"></TextBox>
-                <Button x:Name="setTimescaleButton" Grid.Column="2" Margin="30,0,30,0" Background="Gray" Content="SET" Click="setTimescaleButton_Click"></Button>
+                <Button x:Name="setTimescaleButton" Grid.Column="2" Margin="30,0,30,0" Background="Gray" Content="SET" Click="SetTimescaleButton_Click"></Button>
             </Grid>
         </StackPanel>
     </Grid>
