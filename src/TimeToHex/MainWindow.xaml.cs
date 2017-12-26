@@ -72,21 +72,28 @@ namespace TimeToHex
 
         private void timescaleInput_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (timescaleInput.Text == "") { return; }
-            if (1000 / Convert.ToInt32(timescaleInput.Text) < 1)
+            try
             {
-                System.Windows.MessageBox.Show("The minimum timer interval is 1s");
+                if (timescaleInput.Text == "") { return; }
+                if (1000 / Convert.ToInt32(timescaleInput.Text) < 1)
+                {
+                    System.Windows.MessageBox.Show("The minimum timer interval is 1s");
+                }
+                if (timescaleInput.Text.Length >= 5)
+                {
+                    timescaleInput.Text = timescaleInput.Text.Remove(timescaleInput.Text.Length - 1);
+                    System.Windows.MessageBox.Show("Timescale too large");
+                }
+                if (!int.TryParse(timescaleInput.Text, out int num1))
+                {
+                    timescaleInput.Clear();
+                    System.Windows.MessageBox.Show("Input was not a valid integer");
+                    return;
+                }
             }
-            if (timescaleInput.Text.Length >= 5)
-            {
-                timescaleInput.Text = timescaleInput.Text.Remove(timescaleInput.Text.Length - 1);
-                System.Windows.MessageBox.Show("Timescale too large");
-            }
-            if (!int.TryParse(timescaleInput.Text, out int num1))
+            catch
             {
                 timescaleInput.Clear();
-                System.Windows.MessageBox.Show("Input was not a valid integer");
-                return;
             }
         }
 
